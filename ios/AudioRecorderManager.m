@@ -232,9 +232,11 @@ RCT_EXPORT_METHOD(startRecording)
 
 RCT_EXPORT_METHOD(stopRecording)
 {
-  [_audioRecorder stop];
-  [_recordSession setCategory:AVAudioSessionCategoryPlayback error:nil];
-  _prevProgressUpdateTime = nil;
+    [_audioRecorder stop];
+    [_recordSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+    _prevProgressUpdateTime = nil;
+    _recordSession = [AVAudioSession sharedInstance];
+    [_recordSession setActive:NO error:nil];
 }
 
 RCT_EXPORT_METHOD(pauseRecording)

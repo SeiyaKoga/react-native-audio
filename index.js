@@ -12,7 +12,7 @@ import ReactNative, {
 var AudioRecorderManager = NativeModules.AudioRecorderManager;
 
 var AudioRecorder = {
-  prepareRecordingAtPath: function(path, options) {
+  prepareRecordingAtPath: function (path) {
     if (this.progressSubscription) this.progressSubscription.remove();
     this.progressSubscription = NativeAppEventEmitter.addListener('recordingProgress',
       (data) => {
@@ -43,7 +43,7 @@ var AudioRecorder = {
       IncludeBase64: false
     };
 
-    var recordingOptions = {...defaultOptions, ...options};
+    var recordingOptions = { ...defaultOptions };
 
     if (Platform.OS === 'ios') {
       AudioRecorderManager.prepareRecordingAtPath(
@@ -60,21 +60,21 @@ var AudioRecorder = {
       return AudioRecorderManager.prepareRecordingAtPath(path, recordingOptions);
     }
   },
-  startRecording: function() {
+  startRecording: function () {
     return AudioRecorderManager.startRecording();
   },
-  pauseRecording: function() {
+  pauseRecording: function () {
     return AudioRecorderManager.pauseRecording();
   },
-  resumeRecording: function() {
+  resumeRecording: function () {
     return AudioRecorderManager.resumeRecording();
   },
-  stopRecording: function() {
+  stopRecording: function () {
     return AudioRecorderManager.stopRecording();
   },
   checkAuthorizationStatus: AudioRecorderManager.checkAuthorizationStatus,
   requestAuthorization: AudioRecorderManager.requestAuthorization,
-  removeListeners: function() {
+  removeListeners: function () {
     if (this.progressSubscription) this.progressSubscription.remove();
     if (this.finishedSubscription) this.finishedSubscription.remove();
   },
@@ -101,4 +101,4 @@ if (Platform.OS === 'ios') {
   };
 }
 
-module.exports = {AudioRecorder, AudioUtils};
+module.exports = { AudioRecorder, AudioUtils };
